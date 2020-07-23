@@ -1,19 +1,20 @@
 import React, { Component } from 'react';
-import { View, Platform } from 'react-native';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
+import { createDrawerNavigator } from '@react-navigation/drawer';
+import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 
 // create navigation between components
 const MenuNavigator = createStackNavigator();
+const HomeNavigator = createStackNavigator();
 
-class Main extends Component {
+const MainNavigator = createDrawerNavigator();
 
-  render() {
-    return (
-      <NavigationContainer>
-        <MenuNavigator.Navigator initialRouteName="Menu"
+function MenuNavigatorScreen() {
+  return (
+    <MenuNavigator.Navigator initialRouteName="Menu"
                                   screenOptions={{
                                     headerStyle: {
                                         backgroundColor: "#512DA8"
@@ -23,9 +24,32 @@ class Main extends Component {
                                         color: "#fff"            
                                     }
                                 }}>
-          <MenuNavigator.Screen name="Menu" component={Menu} />
-          <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} />
-        </MenuNavigator.Navigator>
+      <MenuNavigator.Screen name="Menu" component={Menu} />
+      <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} />
+    </MenuNavigator.Navigator>
+  );
+}
+
+function MainNavigatorScreen() {
+  return (
+    <MainNavigator.Navigator initialRouteName="Menu"
+                              screenOptions={{
+                                drawerBackgroundColor: '#D1C4E9'
+                              }}
+                              >
+      {/* <MainNavigator.Screen name="Home" component={Home} /> */}
+      <MainNavigator.Screen name="Menu" component={Menu} />
+    </MainNavigator.Navigator>
+  );
+}
+
+class Main extends Component {
+
+  render() {
+    return (
+      <NavigationContainer>
+        {/* <MenuNavigatorScreen /> */}
+        <MainNavigatorScreen />
       </NavigationContainer>
     );
   }
