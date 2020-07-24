@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { NavigationContainer } from '@react-navigation/native';
+import { NavigationContainer, StackActions } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
 import { createDrawerNavigator } from '@react-navigation/drawer';
 import Home from './HomeComponent';
@@ -7,26 +7,20 @@ import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import { Icon } from'react-native-elements';
 
 // create navigation between components
-const MenuNavigator = createStackNavigator();
+const MenuNavigator = createStackNavigator();  // returns Screen and Navigator
 const HomeNavigator = createStackNavigator();
 const ContactNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
+const Stack = createStackNavigator();
 
 function MenuNavigatorScreen() {
   return (
     <MenuNavigator.Navigator initialRouteName="Menu"
-                                  screenOptions={{
-                                    headerStyle: {
-                                        backgroundColor: "black"
-                                    },
-                                    headerTintColor: "#fff",
-                                    headerTitleStyle: {
-                                        color: "#fff"            
-                                    }
-                                }}>
+                                  screenOptions={Main.screenOptions}>
       <MenuNavigator.Screen name="Menu" component={Menu} />
       <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} />
     </MenuNavigator.Navigator>
@@ -35,16 +29,7 @@ function MenuNavigatorScreen() {
 
 function HomeNavigatorScreen() {
   return (
-    <HomeNavigator.Navigator 
-                            screenOptions={{
-                              headerStyle: {
-                                  backgroundColor: "black"
-                              },
-                              headerTintColor: "#fff",
-                              headerTitleStyle: {
-                                  color: "#fff"            
-                              }
-                            }}>
+    <HomeNavigator.Navigator screenOptions={Main.screenOptions}>
       <HomeNavigator.Screen name="Home" component={Home} />
     </HomeNavigator.Navigator>
   );
@@ -52,16 +37,7 @@ function HomeNavigatorScreen() {
 
 function ContactNavigatorScreen() {
   return (
-    <ContactNavigator.Navigator 
-                            screenOptions={{
-                              headerStyle: {
-                                  backgroundColor: "black"
-                              },
-                              headerTintColor: "#fff",
-                              headerTitleStyle: {
-                                  color: "#fff"            
-                              }
-                            }}>
+    <ContactNavigator.Navigator screenOptions={Main.screenOptions}>
       <ContactNavigator.Screen name="Contact" component={Contact} />
     </ContactNavigator.Navigator>
   );
@@ -69,53 +45,39 @@ function ContactNavigatorScreen() {
 
 function AboutNavigatorScreen() {
   return (
-    <AboutNavigator.Navigator 
-                            screenOptions={{
-                              headerStyle: {
-                                  backgroundColor: "black"
-                              },
-                              headerTintColor: "#fff",
-                              headerTitleStyle: {
-                                  color: "#fff"            
-                              }
-                            }}>
+    <AboutNavigator.Navigator screenOptions={Main.screenOptions}>
       <AboutNavigator.Screen name="About" component={About} />
     </AboutNavigator.Navigator>
   );
 }
 
+const mapNameToScreens = {
+  Home: HomeNavigatorScreen,
+  About: AboutNavigatorScreen,
+  Menu: MenuNavigatorScreen,
+  Contact: ContactNavigatorScreen
+}
+
 function MainNavigatorScreen() {
   return (
-    <MainNavigator.Navigator openByDefault
-                            drawerStyle={{
-                                backgroundColor: 'white'
-                              }}
-                              >
-      <MainNavigator.Screen name="Home" component={HomeNavigatorScreen}
-                            options={{ 
-                              title: 'Home',
-                              drawerLabel: 'Home'
-                            }} />
-      <MainNavigator.Screen name="About" component={AboutNavigatorScreen}
-                            options={{ 
-                              title: 'About Us',
-                              drawerLabel: 'About Us'
-                            }} />
-      <MainNavigator.Screen name="Menu" component={MenuNavigatorScreen}
-                            options={{ 
-                              title: 'Menu',
-                              drawerLabel: 'Menu'
-                            }} />
-      <MainNavigator.Screen name="Contact" component={ContactNavigatorScreen}
-                            options={{ 
-                              title: 'Contact Us',
-                              drawerLabel: 'Contact Us'
-                            }} />
+    <MainNavigator.Navigator openByDefault drawerStyle={{ backgroundColor: 'white' }} >
+      {Object.entries({ ...mapNameToScreens }).map(( [name, component] ) => (
+        <MainNavigator.Screen name={name} component={component} />
+      ))}
     </MainNavigator.Navigator>
   );
 }
 
 class Main extends Component {
+  static screenOptions = {
+    headerStyle: {
+        backgroundColor: "black"
+    },
+    headerTintColor: "#fff",
+    headerTitleStyle: {
+        color: "#fff"            
+    }
+  };
 
   render() {
     return (
