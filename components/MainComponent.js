@@ -7,7 +7,7 @@ import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
-import { View, ScrollView, Platform, Image, StyleSheet, Text } from 'react-native';
+import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from'react-native-elements';
 
@@ -88,7 +88,7 @@ function CustomDrawerContentComponent(props) {
             <Image source={require('./images/logo.png')}
                     style={styles.drawerImage} />
           </View>
-          <View style={{ flex: 2 }}>
+          <View style={{ flex: 3 }}>
             <Text style={styles.drawerHeaderText}>Ristorante Con Fusion</Text>
           </View>
         </View>
@@ -161,13 +161,13 @@ const styles = StyleSheet.create({
   },
   drawerHeaderText: {
     color: 'white',
-    fontSize: 24,
+    fontSize: 20,
     fontWeight: 'bold'
   },
   drawerImage: {
-    margin: 10,
-    width: 80,
-    height: 60
+    margin: 20,
+    width: 40,
+    height: 30
   }
 });
 
