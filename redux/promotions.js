@@ -1,7 +1,7 @@
 // reducer for promotions
 import * as ActionTypes from './ActionTypes';
 
-export const leaders = (state = {
+export const promotions = (state = {
   isLoading: true,
   errMess: null,
   promotions: []

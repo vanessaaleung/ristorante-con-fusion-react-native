@@ -10,6 +10,16 @@ import About from './AboutComponent';
 import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from'react-native-elements';
+import { connect } from 'react-redux';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+
+// connect dispatcher to props
+const mapDispatchToProps = dispatch => ({
+  fetchDishes: () => dispatch(fetchDishes()),
+  fetchComments: () => dispatch(fetchComments()),
+  fetchPromos: () => dispatch(fetchPromos()),
+  fetchLeaders: () => dispatch(fetchLeaders()),
+})
 
 // create navigation between components
 const MenuNavigator = createStackNavigator();  // returns Screen and Navigator
@@ -134,6 +144,13 @@ class Main extends Component {
               onPress={() => navigation.toggleDrawer()} />
       )  
     };
+  
+  componentDidMount() {
+    this.props.fetchDishes();
+    this.props.fetchComments();
+    this.props.fetchLeaders();
+    this.props.fetchPromos();
+  }
 
   render() {
     return (
@@ -171,4 +188,4 @@ const styles = StyleSheet.create({
   }
 });
 
-export default Main;
+export default connect(null, mapDispatchToProps)(Main);
