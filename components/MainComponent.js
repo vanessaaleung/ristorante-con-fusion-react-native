@@ -7,6 +7,7 @@ import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
+import Reservation from './ReservationComponent';
 import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from'react-native-elements';
@@ -26,6 +27,7 @@ const MenuNavigator = createStackNavigator();  // returns Screen and Navigator
 const HomeNavigator = createStackNavigator();
 const ContactNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
+const ReservationNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
 
 function MenuNavigatorScreen() {
@@ -61,6 +63,14 @@ function AboutNavigatorScreen() {
   );
 }
 
+function ReservationNavigatorScreen() {
+  return (
+    <ReservationNavigator.Navigator screenOptions={Main.screenOptions}>
+      <ReservationNavigator.Screen name="Reservation" component={Reservation} />
+    </ReservationNavigator.Navigator>
+  );
+}
+
 const mapNameToScreens = {
   Home: {
     component: HomeNavigatorScreen,
@@ -85,6 +95,12 @@ const mapNameToScreens = {
     drawerLabel: 'Contact Us',
     icon: 'address-card',
     iconSize: 19
+  },
+  Reservation: {
+    component: ReservationNavigatorScreen,
+    drawerLabel: 'Reserve Table',
+    icon: 'cutlery',
+    iconSize: 22
   }
 }
 
