@@ -8,6 +8,7 @@ import Dishdetail from './DishdetailComponent';
 import Contact from './ContactComponent';
 import About from './AboutComponent';
 import Reservation from './ReservationComponent';
+import Favorites from './FavoritesComponent';
 import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from'react-native-elements';
@@ -28,6 +29,7 @@ const HomeNavigator = createStackNavigator();
 const ContactNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
+const FavoritesNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
 
 function MenuNavigatorScreen({ navigation }) {
@@ -40,13 +42,15 @@ function MenuNavigatorScreen({ navigation }) {
                                 headerTintColor: "#fff",
                                 headerTitleStyle: {
                                     color: "#fff"            
-                                },
-                                headerLeft: () => (
-                                  <Icon name='menu' size={24} color='white' 
-                                        onPress={() => navigation.toggleDrawer()} />
-                                )  
+                                }
                               }}>
-      <MenuNavigator.Screen name="Menu" component={Menu} />
+      <MenuNavigator.Screen name="Menu" component={Menu} 
+                            options={{
+                              headerLeft: () => (
+                                <Icon name='menu' size={24} color='white' 
+                                      onPress={() => navigation.toggleDrawer()}
+                                      style={{ marginLeft: 20 }} />
+                              )}} />
       <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} />
     </MenuNavigator.Navigator>
   );
@@ -64,7 +68,8 @@ function HomeNavigatorScreen({ navigation }) {
                               },
                               headerLeft: () => (
                                 <Icon name='menu' size={24} color='white' 
-                                      onPress={() => navigation.toggleDrawer()} />
+                                      onPress={() => navigation.toggleDrawer()}
+                                      style={{ marginLeft: 20 }} />
                               )  
                             }}>
       <HomeNavigator.Screen name="Home" component={Home} />
@@ -84,7 +89,8 @@ function ContactNavigatorScreen({ navigation }) {
                                   },
                                   headerLeft: () => (
                                     <Icon name='menu' size={24} color='white' 
-                                          onPress={() => navigation.toggleDrawer()} />
+                                          onPress={() => navigation.toggleDrawer()}
+                                          style={{ marginLeft: 20 }} />
                                   )  
                                 }}>
       <ContactNavigator.Screen name="Contact" component={Contact} />
@@ -104,7 +110,8 @@ function AboutNavigatorScreen({ navigation }) {
                                 },
                                 headerLeft: () => (
                                   <Icon name='menu' size={24} color='white' 
-                                        onPress={() => navigation.toggleDrawer()} />
+                                        onPress={() => navigation.toggleDrawer()}
+                                        style={{ marginLeft: 20 }} />
                                 )  
                               }}>
       <AboutNavigator.Screen name="About" component={About} />
@@ -124,11 +131,33 @@ function ReservationNavigatorScreen({ navigation }) {
                                       },
                                       headerLeft: () => (
                                         <Icon name='menu' size={24} color='white' 
-                                              onPress={() => navigation.toggleDrawer()} />
+                                              onPress={() => navigation.toggleDrawer()}
+                                              style={{ marginLeft: 20 }} />
                                       )  
                                     }}>
       <ReservationNavigator.Screen name="Reservation" component={Reservation} />
     </ReservationNavigator.Navigator>
+  );
+}
+
+function FavoritesNavigatorScreen({ navigation }) {
+  return (
+    <FavoritesNavigator.Navigator screenOptions={{
+                                      headerStyle: {
+                                          backgroundColor: "black"
+                                      },
+                                      headerTintColor: "#fff",
+                                      headerTitleStyle: {
+                                          color: "#fff"            
+                                      },
+                                      headerLeft: () => (
+                                        <Icon name='menu' size={24} color='white' 
+                                              onPress={() => navigation.toggleDrawer()}
+                                              style={{ marginLeft: 20 }} />
+                                      )  
+                                    }}>
+      <FavoritesNavigator.Screen name="Favorites" component={Favorites} />
+    </FavoritesNavigator.Navigator>
   );
 }
 
@@ -161,6 +190,12 @@ const mapNameToScreens = {
     component: ReservationNavigatorScreen,
     drawerLabel: 'Reserve Table',
     icon: 'cutlery',
+    iconSize: 22
+  },
+  Favorites: {
+    component: FavoritesNavigatorScreen,
+    drawerLabel: 'My Favorites',
+    icon: 'heart',
     iconSize: 22
   }
 }
