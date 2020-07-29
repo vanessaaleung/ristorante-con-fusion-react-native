@@ -17,21 +17,21 @@ class Reservation extends Component {
 
   toggleModal() {
     this.setState({showModal: !this.state.showModal});
-}
+  }
 
-handleReservation() {
-    console.log(JSON.stringify(this.state));
-    this.toggleModal();
-}
+  handleReservation() {
+      console.log(JSON.stringify(this.state));
+      this.toggleModal();
+  }
 
-resetForm() {
-    this.setState({
-        guests: 1,
-        smoking: false,
-        date: '',
-        showModal: false
-    });
-}
+  resetForm() {
+      this.setState({
+          guests: 1,
+          smoking: false,
+          date: '',
+          showModal: false
+      });
+  }
 
   render() {
     const guestNumOptions = {1: '1', 2: '2', 3: '3', 4: '4', 5: '5', 6: '6'};
@@ -78,7 +78,7 @@ resetForm() {
           <Button title='Reserve' 
                   color='black' 
                   onPress={() => this.handleReservation()}
-                  accessibilityLabel='Learn more about this purple button' />
+                  accessibilityLabel='Learn more about this black button' />
         </View>
         <Modal animationType={"slide"} transparent = {false}
               visible={this.state.showModal}

@@ -72,6 +72,12 @@ function ReservationNavigatorScreen() {
 }
 
 const mapNameToScreens = {
+  Menu: {
+    component: MenuNavigatorScreen,
+    drawerLabel: 'Menu',
+    icon: 'list',
+    iconSize: 22
+  },
   Home: {
     component: HomeNavigatorScreen,
     drawerLabel: 'Home',
@@ -84,12 +90,7 @@ const mapNameToScreens = {
     icon: 'info-circle',
     iconSize: 26
   },
-  Menu: {
-    component: MenuNavigatorScreen,
-    drawerLabel: 'Menu',
-    icon: 'list',
-    iconSize: 22
-  },
+  
   Contact: {
     component: ContactNavigatorScreen,
     drawerLabel: 'Contact Us',
@@ -131,7 +132,8 @@ function MainNavigatorScreen() {
                             drawerContent={(props) => <CustomDrawerContentComponent {...props} />}
                              >
       {Object.entries({ ...mapNameToScreens }).map(( [name, config] ) => (
-        <MainNavigator.Screen name={name} 
+        <MainNavigator.Screen key={name} 
+                              name={name} 
                               component={config.component}
                               options={{
                                 drawerLabel: config.drawerLabel,
