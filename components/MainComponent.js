@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator, DrawerItemList } from '@react-navigation/drawer';
+import { createDrawerNavigator, DrawerItemList, DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
@@ -30,54 +30,109 @@ const AboutNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
 const MainNavigator = createDrawerNavigator();
 
-function MenuNavigatorScreen() {
+function MenuNavigatorScreen({ navigation }) {
   return (
-    <MenuNavigator.Navigator initialRouteName="Menu" screenOptions={Main.screenOptions}>
+    <MenuNavigator.Navigator initialRouteName="Menu" 
+                              screenOptions={{
+                                headerStyle: {
+                                    backgroundColor: "black"
+                                },
+                                headerTintColor: "#fff",
+                                headerTitleStyle: {
+                                    color: "#fff"            
+                                },
+                                headerLeft: () => (
+                                  <Icon name='menu' size={24} color='white' 
+                                        onPress={() => navigation.toggleDrawer()} />
+                                )  
+                              }}>
       <MenuNavigator.Screen name="Menu" component={Menu} />
       <MenuNavigator.Screen name="Dishdetail" component={Dishdetail} />
     </MenuNavigator.Navigator>
   );
 }
 
-function HomeNavigatorScreen() {
+function HomeNavigatorScreen({ navigation }) {
   return (
-    <HomeNavigator.Navigator screenOptions={Main.screenOptions}>
+    <HomeNavigator.Navigator screenOptions={{
+                              headerStyle: {
+                                  backgroundColor: "black"
+                              },
+                              headerTintColor: "#fff",
+                              headerTitleStyle: {
+                                  color: "#fff"            
+                              },
+                              headerLeft: () => (
+                                <Icon name='menu' size={24} color='white' 
+                                      onPress={() => navigation.toggleDrawer()} />
+                              )  
+                            }}>
       <HomeNavigator.Screen name="Home" component={Home} />
     </HomeNavigator.Navigator>
   ); 
 }
 
-function ContactNavigatorScreen() {
+function ContactNavigatorScreen({ navigation }) {
   return (
-    <ContactNavigator.Navigator screenOptions={Main.screenOptions}>
+    <ContactNavigator.Navigator screenOptions={{
+                                  headerStyle: {
+                                      backgroundColor: "black"
+                                  },
+                                  headerTintColor: "#fff",
+                                  headerTitleStyle: {
+                                      color: "#fff"            
+                                  },
+                                  headerLeft: () => (
+                                    <Icon name='menu' size={24} color='white' 
+                                          onPress={() => navigation.toggleDrawer()} />
+                                  )  
+                                }}>
       <ContactNavigator.Screen name="Contact" component={Contact} />
     </ContactNavigator.Navigator>
   );
 }
 
-function AboutNavigatorScreen() {
+function AboutNavigatorScreen({ navigation }) {
   return (
-    <AboutNavigator.Navigator screenOptions={Main.screenOptions}>
+    <AboutNavigator.Navigator screenOptions={{
+                                headerStyle: {
+                                    backgroundColor: "black"
+                                },
+                                headerTintColor: "#fff",
+                                headerTitleStyle: {
+                                    color: "#fff"            
+                                },
+                                headerLeft: () => (
+                                  <Icon name='menu' size={24} color='white' 
+                                        onPress={() => navigation.toggleDrawer()} />
+                                )  
+                              }}>
       <AboutNavigator.Screen name="About" component={About} />
     </AboutNavigator.Navigator>
   );
 }
 
-function ReservationNavigatorScreen() {
+function ReservationNavigatorScreen({ navigation }) {
   return (
-    <ReservationNavigator.Navigator screenOptions={Main.screenOptions}>
+    <ReservationNavigator.Navigator screenOptions={{
+                                      headerStyle: {
+                                          backgroundColor: "black"
+                                      },
+                                      headerTintColor: "#fff",
+                                      headerTitleStyle: {
+                                          color: "#fff"            
+                                      },
+                                      headerLeft: () => (
+                                        <Icon name='menu' size={24} color='white' 
+                                              onPress={() => navigation.toggleDrawer()} />
+                                      )  
+                                    }}>
       <ReservationNavigator.Screen name="Reservation" component={Reservation} />
     </ReservationNavigator.Navigator>
   );
 }
 
 const mapNameToScreens = {
-  Menu: {
-    component: MenuNavigatorScreen,
-    drawerLabel: 'Menu',
-    icon: 'list',
-    iconSize: 22
-  },
   Home: {
     component: HomeNavigatorScreen,
     drawerLabel: 'Home',
@@ -90,7 +145,12 @@ const mapNameToScreens = {
     icon: 'info-circle',
     iconSize: 26
   },
-  
+  Menu: {
+    component: MenuNavigatorScreen,
+    drawerLabel: 'Menu',
+    icon: 'list',
+    iconSize: 22
+  },
   Contact: {
     component: ContactNavigatorScreen,
     drawerLabel: 'Contact Us',
@@ -107,13 +167,11 @@ const mapNameToScreens = {
 
 function CustomDrawerContentComponent(props) {
   return (
-    <ScrollView>
-      <SafeAreaView style={styles.container}
-                    forceInset={{ top: 'always', horizontal: 'never' }}>
+    <DrawerContentScrollView>
+      <SafeAreaView style={styles.container} forceInset={{ top: 'always', horizontal: 'never' }}>
         <View style={styles.drawerHeader}>
           <View style={{ flex: 1 }}>
-            <Image source={require('./images/logo.png')}
-                    style={styles.drawerImage} />
+            <Image source={require('./images/logo.png')} style={styles.drawerImage} />
           </View>
           <View style={{ flex: 3 }}>
             <Text style={styles.drawerHeaderText}>Ristorante Con Fusion</Text>
@@ -121,13 +179,13 @@ function CustomDrawerContentComponent(props) {
         </View>
         <DrawerItemList {...props} />
       </SafeAreaView>
-    </ScrollView>
+    </DrawerContentScrollView>
   )
 }
 
 function MainNavigatorScreen() {
   return (
-    <MainNavigator.Navigator openByDefault 
+    <MainNavigator.Navigator  
                             drawerStyle={{ backgroundColor: 'white' }}
                             drawerContent={(props) => <CustomDrawerContentComponent {...props} />}
                              >
@@ -157,7 +215,7 @@ class Main extends Component {
       headerTitleStyle: {
           color: "#fff"            
       },
-      headerLeft: (navigation) => (
+      headerLeft: () => (
         <Icon name='menu' size={24} color='white' 
               onPress={() => navigation.toggleDrawer()} />
       )  
