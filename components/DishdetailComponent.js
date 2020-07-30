@@ -122,7 +122,7 @@ class Dishdetail extends Component {
     return (
       <ScrollView>
         <RenderDish dish={this.props.dishes.dishes[+dishId]}
-                    favorite={this.props.favorites.some(
+                    favorite={this.props.favorites.favorites.some(
                                 element => element === dishId)} 
                     addFavorite={() => this.markFavorite(dishId)}
                     toggleModal={() => this.toggleModal()}

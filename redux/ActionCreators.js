@@ -1,7 +1,9 @@
+// set up various action creators
+
 import * as ActionTypes from './ActionTypes';
 import { baseUrl } from '../shared/baseUrl';
 
-// set up various action creators
+// comments
 export const fetchComments = () => (dispatch) => {
   return fetch(baseUrl + 'comments')
         .then(response => {
@@ -32,6 +34,24 @@ export const addComments = (comments) => ({
   type: ActionTypes.ADD_COMMENTS,
   payload: comments
 })
+
+export const postComment = (id, dishId, author, comment, rating, date) => (dispatch) => {
+  setTimeout(() => {
+    dispatch(addComment(id, dishId, author, comment, rating, date));
+  }, 2000);
+};
+
+export const addComment = (id, dishId, author, comment, rating, date) => ({
+  type: ActionTypes.ADD_COMMENT,
+  payload: {
+    id: id,
+    dishId: dishId, 
+    author: author, 
+    comment: comment,
+    rating: rating, 
+    date: date
+  }
+});
 
 // dishes
 export const fetchDishes = () => (dispatch) => {
@@ -148,6 +168,43 @@ export const addLeaders = (leaders) => ({
 });
 
 // favorites
+export const fetchFavorites = () => (dispatch) => {
+  dispatch(favoritesLoading());
+
+  return fetch(baseUrl + 'favorites')
+        .then(response => {
+          if (response.ok) {
+            return response;
+          }
+          else {
+            var error = new Error('Error ' + response.status + ': ' + response.statusText);
+            error.response = response;
+            throw error;
+          }
+        },
+        error => {
+          var errMess = new Error(error.message)
+          throw errMess;
+        })
+        .then(response => response.json())
+        .then(favorites => dispatch(addFavorites(favorites)))
+        .catch(error => dispatch(favoritesFailed(error.message)))
+};
+
+export const favoritesLoading = () => ({
+  type: ActionTypes.FAVORITES_LOADING
+});
+
+export const favoritesFailed = (errmess) => ({
+  type: ActionTypes.FAVORITES_FAILED,
+  payload: errmess
+});
+
+export const addFavorites = (favorites) => ({
+  type: ActionTypes.ADD_FAVORITES,
+  payload: favorites
+});
+
 export const postFavorite = (dishId) => (dispatch) => {
   // simulate server delay
   setTimeout(() => {
@@ -160,21 +217,7 @@ export const addFavorite = (dishId) => ({
   payload: dishId
 });
 
-// comments
-export const postComment = (id, dishId, author, comment, rating, date) => (dispatch) => {
-  setTimeout(() => {
-    dispatch(addComment(id, dishId, author, comment, rating, date));
-  }, 2000);
-};
-
-export const addComment = (id, dishId, author, comment, rating, date) => ({
-  type: ActionTypes.ADD_COMMENT,
-  payload: {
-    id: id,
-    dishId: dishId, 
-    author: author, 
-    comment: comment,
-    rating: rating, 
-    date: date
-  }
+export const deleteFavorite = (dishId) => ({
+  type: ActionTypes.DELETE_FAVORITE,
+  payload: dishId
 });

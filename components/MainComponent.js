@@ -13,7 +13,7 @@ import { View, ScrollView, Image, StyleSheet, Text } from 'react-native';
 import { SafeAreaProvider, SafeAreaView } from 'react-native-safe-area-context';
 import { Icon } from'react-native-elements';
 import { connect } from 'react-redux';
-import { fetchDishes, fetchComments, fetchPromos, fetchLeaders } from '../redux/ActionCreators';
+import { fetchDishes, fetchComments, fetchPromos, fetchLeaders, fetchFavorites } from '../redux/ActionCreators';
 
 // connect dispatcher to props
 const mapDispatchToProps = dispatch => ({
@@ -21,6 +21,7 @@ const mapDispatchToProps = dispatch => ({
   fetchComments: () => dispatch(fetchComments()),
   fetchPromos: () => dispatch(fetchPromos()),
   fetchLeaders: () => dispatch(fetchLeaders()),
+  fetchFavorites: () => dispatch(fetchFavorites())
 })
 
 // create navigation between components
@@ -162,6 +163,12 @@ function FavoritesNavigatorScreen({ navigation }) {
 }
 
 const mapNameToScreens = {
+  Favorites: {
+    component: FavoritesNavigatorScreen,
+    drawerLabel: 'My Favorites',
+    icon: 'heart',
+    iconSize: 22
+  },
   Home: {
     component: HomeNavigatorScreen,
     drawerLabel: 'Home',
@@ -192,12 +199,7 @@ const mapNameToScreens = {
     icon: 'cutlery',
     iconSize: 22
   },
-  Favorites: {
-    component: FavoritesNavigatorScreen,
-    drawerLabel: 'My Favorites',
-    icon: 'heart',
-    iconSize: 22
-  }
+  
 }
 
 function CustomDrawerContentComponent(props) {
@@ -261,6 +263,7 @@ class Main extends Component {
     this.props.fetchComments();
     this.props.fetchLeaders();
     this.props.fetchPromos();
+    this.props.fetchFavorites();
   }
 
   render() {
