@@ -47,7 +47,7 @@ class Reservation extends Component {
                       guests: itemValue 
                     })}>
             {Object.entries({ ...guestNumOptions }).map(( [option] ) => (
-              <Picker.Item label={option} value={option} />     
+              <Picker.Item key={option} label={option} value={option} />     
             ))}     
           </Picker>
         </View>
