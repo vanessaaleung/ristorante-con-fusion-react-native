@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createStackNavigator } from '@react-navigation/stack';
-import { createDrawerNavigator, DrawerItemList, DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
+// import { createDrawerNavigator, DrawerItemList, DrawerItem, DrawerContentScrollView } from '@react-navigation/drawer';
 import Home from './HomeComponent';
 import Menu from './MenuComponent';
 import Dishdetail from './DishdetailComponent';
@@ -31,7 +31,7 @@ const ContactNavigator = createStackNavigator();
 const AboutNavigator = createStackNavigator();
 const ReservationNavigator = createStackNavigator();
 const FavoritesNavigator = createStackNavigator();
-const MainNavigator = createDrawerNavigator();
+// const MainNavigator = createDrawerNavigator();
 
 function MenuNavigatorScreen({ navigation }) {
   return (
@@ -237,7 +237,8 @@ class Main extends Component {
     return (
       <SafeAreaProvider> 
         <NavigationContainer>
-          <MainNavigatorScreen />
+          {/* <MainNavigatorScreen /> */}
+          <MenuNavigatorScreen />
         </NavigationContainer>
       </SafeAreaProvider>
     );
